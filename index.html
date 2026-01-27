@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bingoo Social – Software de Bingo para Asociaciones</title>
+
     <style>
         body {
             margin: 0;
@@ -83,8 +84,55 @@
             font-size: 0.9rem;
             color: #777;
         }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+        }
+
+        .modal-content {
+            background: #fff;
+            margin: 12% auto;
+            padding: 25px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .modal-buttons button {
+            margin: 10px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .modal-buttons button:first-child {
+            background: #ffb400;
+        }
+
+        .modal-buttons button:last-child {
+            background: #ccc;
+        }
+
+        .counter-box {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #444;
+        }
     </style>
 </head>
+
 <body>
 
 <header>
@@ -96,10 +144,12 @@
 <div class="container">
 
     <div class="section" style="text-align:center;">
-        <a class="download-btn" href="https://raw.githubusercontent.com/Ahuergoza/Windows-Bingo/main/BINGOO.exe">📥 Descargar Bingoo Social</a>
-        <br>
-      
+        <a class="download-btn" href="#" onclick="openModal()">📥 Descargar Bingoo Social</a>
         <p>Versión para Windows – Portable sin Instalación</p>
+
+        <div class="counter-box">
+            Descargas realizadas en este dispositivo: <strong id="downloadCount">0</strong>
+        </div>
     </div>
 
     <div class="section features">
@@ -110,7 +160,7 @@
             <li>Tabla completa del 1 al 90</li>
             <li>Interfaz limpia y accesible</li>
             <li>Pensado para uso social y comunitario</li>
-            <li>Código Limpio</li>
+            <li>Código limpio y optimizado</li>
         </ul>
     </div>
 
@@ -138,7 +188,49 @@
     © 2026 Bingoo Social – Proyecto comunitario
 </footer>
 
+<!-- Modal -->
+<div id="donationModal" class="modal">
+    <div class="modal-content">
+        <h2>¿Te ha gustado Bingoo Social?</h2>
+        <p>Si Bingoo Social te ha gustado, puedes apoyar el proyecto invitándome a un café.</p>
+        <p><strong>Bizum:</strong> 680 808 925</p>
+        <p><strong>PayPal:</strong> <a href="https://paypal.me/ahuergoza" target="_blank">paypal.me/ahuergoza</a></p>
+
+        <div class="modal-buttons">
+            <button onclick="continueDownload()">Continuar con la descarga gratuita</button>
+            <button onclick="closeModal()">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function openModal() {
+    document.getElementById("donationModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("donationModal").style.display = "none";
+}
+
+function continueDownload() {
+    // Incrementar contador local
+    let count = localStorage.getItem("bingooDownloads") || 0;
+    count++;
+    localStorage.setItem("bingooDownloads", count);
+    document.getElementById("downloadCount").innerText = count;
+
+    // Descargar archivo
+    window.location.href = "https://raw.githubusercontent.com/Ahuergoza/Windows-Bingo/main/BINGOO.exe";
+
+    closeModal();
+}
+
+// Mostrar contador al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+    let count = localStorage.getItem("bingooDownloads") || 0;
+    document.getElementById("downloadCount").innerText = count;
+});
+</script>
+
 </body>
 </html>
-
-
