@@ -148,7 +148,7 @@
         <p>Versión para Windows – Portable sin Instalación</p>
 
         <div class="counter-box">
-            Descargas realizadas en este dispositivo: <strong id="downloadCount">0</strong>
+            Descargas totales: <strong id="downloadCount">0</strong>
         </div>
     </div>
 
@@ -204,20 +204,25 @@
 </div>
 
 <script>
+// Abrir modal
 function openModal() {
     document.getElementById("donationModal").style.display = "block";
 }
 
+// Cerrar modal
 function closeModal() {
     document.getElementById("donationModal").style.display = "none";
 }
 
+// Descargar + incrementar contador global
 function continueDownload() {
-    // Incrementar contador local
-    let count = localStorage.getItem("bingooDownloads") || 0;
-    count++;
-    localStorage.setItem("bingooDownloads", count);
-    document.getElementById("downloadCount").innerText = count;
+
+    // Incrementar contador global en CountAPI
+    fetch("https://api.countapi.xyz/hit/bingoo-social/descargas")
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById("downloadCount").innerText = data.value;
+        });
 
     // Descargar archivo
     window.location.href = "https://raw.githubusercontent.com/Ahuergoza/Windows-Bingo/main/BINGOO.exe";
@@ -227,8 +232,11 @@ function continueDownload() {
 
 // Mostrar contador al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
-    let count = localStorage.getItem("bingooDownloads") || 0;
-    document.getElementById("downloadCount").innerText = count;
+    fetch("https://api.countapi.xyz/get/bingoo-social/descargas")
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById("downloadCount").innerText = data.value || 0;
+        });
 });
 </script>
 
