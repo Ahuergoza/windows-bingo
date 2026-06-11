@@ -1,265 +1,176 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bingoo Social – Software de Bingo para uso social</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #f7f2e9, #fdfdfd);
+        color: #333;
+    }
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #f7f2e9, #fdfdfd);
-            color: #333;
-        }
+    header {
+        text-align: center;
+        padding: 20px;
+    }
 
-        header {
-            text-align: center;
-            padding: 20px;
-        }
+    /* ⭐ BANNER RESPONSIVE REAL */
+    header img {
+        width: 100%;
+        max-width: 1200px;        /* evita que se estire demasiado en pantallas grandes */
+        height: auto;             /* mantiene proporción real */
+        display: block;
+        margin: 0 auto 20px auto;
+        border-radius: 12px;
+    }
 
-        /* ⭐ BANNER RESPONSIVE */
-        header img {
-            width: 100%;
-            aspect-ratio: 16 / 6; /* proporción tipo banner */
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
+    h1 {
+        font-size: 2.4rem;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        font-size: 1.2rem;
+        color: #666;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .download-btn {
+        display: inline-block;
+        background: #ffb400;
+        color: #000;
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        margin: 10px 0;
+        transition: 0.2s;
+    }
+
+    .download-btn:hover {
+        background: #ffcf4d;
+    }
+
+    .section {
+        margin: 40px 0;
+    }
+
+    .section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    .features ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .features li {
+        background: #fff;
+        padding: 12px 15px;
+        margin: 8px 0;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+
+    footer {
+        text-align: center;
+        padding: 30px;
+        font-size: 0.9rem;
+        color: #777;
+    }
+
+    /* MODAL */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+    }
+
+    .modal-content {
+        background: #fff;
+        margin: 12% auto;
+        padding: 25px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 420px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .modal-buttons button {
+        margin: 10px;
+        padding: 12px 20px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .modal-buttons button:first-child {
+        background: #ffb400;
+    }
+
+    .modal-buttons button:last-child {
+        background: #ccc;
+    }
+
+    /* 📱 RESPONSIVE DESIGN */
+    @media (max-width: 768px) {
 
         h1 {
-            font-size: 2.4rem;
-            margin-bottom: 10px;
+            font-size: 1.9rem;
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            color: #666;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
+            font-size: 1rem;
         }
 
         .download-btn {
-            display: inline-block;
-            background: #ffb400;
-            color: #000;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            margin: 10px 0;
-            transition: 0.2s;
-        }
-
-        .download-btn:hover {
-            background: #ffcf4d;
-        }
-
-        .section {
-            margin: 40px 0;
+            width: 100%;
+            font-size: 1.1rem;
+            padding: 14px;
         }
 
         .section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        .features ul {
-            list-style: none;
-            padding: 0;
+            font-size: 1.5rem;
         }
 
         .features li {
-            background: #fff;
-            padding: 12px 15px;
-            margin: 8px 0;
-            border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            font-size: 0.95rem;
         }
 
-        footer {
-            text-align: center;
-            padding: 30px;
+        /* Banner más alto en móvil */
+        header img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+    }
+
+    @media (max-width: 480px) {
+
+        h1 {
+            font-size: 1.6rem;
+        }
+
+        .subtitle {
             font-size: 0.9rem;
-            color: #777;
         }
 
-        /* MODAL */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
+        .section {
+            margin: 25px 0;
         }
 
         .modal-content {
-            background: #fff;
-            margin: 12% auto;
-            padding: 25px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 420px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            margin-top: 40%;
         }
-
-        .modal-buttons button {
-            margin: 10px;
-            padding: 12px 20px;
-            font-size: 1rem;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .modal-buttons button:first-child {
-            background: #ffb400;
-        }
-
-        .modal-buttons button:last-child {
-            background: #ccc;
-        }
-
-        /* 📱 RESPONSIVE DESIGN */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.9rem;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-            }
-
-            .download-btn {
-                width: 100%;
-                font-size: 1.1rem;
-                padding: 14px;
-            }
-
-            .section h2 {
-                font-size: 1.5rem;
-            }
-
-            .features li {
-                font-size: 0.95rem;
-            }
-
-            /* Banner más alto en móvil */
-            header img {
-                aspect-ratio: 16 / 9;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.6rem;
-            }
-
-            .subtitle {
-                font-size: 0.9rem;
-            }
-
-            .section {
-                margin: 25px 0;
-            }
-
-            .modal-content {
-                margin-top: 40%;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-<header>
-    <img src="https://raw.githubusercontent.com/Ahuergoza/Windows-Bingo/main/banner.png" alt="Bingoo Social">
-    <h1>Bingoo Social</h1>
-    <p class="subtitle">El bingo más divertido y accesible para tus fiestas privadas con amigos</p>
-</header>
-
-<div class="container">
-
-    <div class="section" style="text-align:center;">
-        <a class="download-btn" href="#" onclick="openModal()">📥 Descargar Bingoo Social</a>
-        <p>Versión para Windows – Portable sin Instalación</p>
-    </div>
-
-    <div class="section features">
-        <h2>Características</h2>
-        <ul>
-            <li>Número gigante adaptable a cualquier pantalla</li>
-            <li>Historial de números</li>
-            <li>Tabla completa del 1 al 90</li>
-            <li>Interfaz limpia y accesible</li>
-            <li>Pensado para uso social y comunitario</li>
-            <li>Código limpio y optimizado</li>
-        </ul>
-    </div>
-
-    <div class="section">
-        <h2>¿Qué es Bingoo Social?</h2>
-        <p>
-            Bingoo Social es un software gratuito diseñado para uso privado y sin ánimo de lucro.
-            Accesible y totalmente legal para uso en fiestas privadas. Descarga el archivo y ejecuta 
-            el software. En la pantalla Smartscreen de Windows da a "Ejecutar de todas formas". No es 
-            un archivo malicioso. Una vez dentro del software, elige la frecuencia y pulsa "inicio". 
-            Para parar pulsa "parar" y para iniciar una nueva partida pulsa "reiniciar". Recuerda "Uso social".
-        </p>
-    </div>
-
-    <div class="section">
-        <h2>Apoya el proyecto</h2>
-        <p>Si Bingoo Social te resulta útil, puedes apoyar su desarrollo con una donación:</p>
-        <ul>
-            <li><strong>Bizum:</strong> 680 808 925</li>
-            <li><strong>PayPal:</strong> <a href="https://paypal.me/ahuergoza" target="_blank">paypal.me/ahuergoza</a></li>
-        </ul>
-    </div>
-
-</div>
-
-<footer>
-    © 2026 Bingoo Social – Proyecto comunitario
-</footer>
-
-<div id="donationModal" class="modal">
-    <div class="modal-content">
-        <h2>¿Te ha gustado Bingoo Social?</h2>
-        <p>Si Bingoo Social te ha gustado, puedes apoyar el proyecto invitándome a un café.</p>
-        <p><strong>Bizum:</strong> 680 808 925</p>
-        <p><strong>PayPal:</strong> <a href="https://paypal.me/ahuergoza" target="_blank">paypal.me/ahuergoza</a></p>
-
-        <div class="modal-buttons">
-            <button onclick="continueDownload()">Continuar con la descarga gratuita</button>
-            <button onclick="closeModal()">Cerrar</button>
-        </div>
-    </div>
-</div>
-
-<script>
-function openModal() {
-    document.getElementById("donationModal").style.display = "block";
-}
-
-function closeModal() {
-    document.getElementById("donationModal").style.display = "none";
-}
-
-function continueDownload() {
-    window.location.href = "https://raw.githubusercontent.com/Ahuergoza/Windows-Bingo/main/BINGOO.exe";
-    closeModal();
-}
-</script>
-
-</body>
-</html>
+    }
+</style>
